@@ -1,0 +1,5 @@
+/* Override admin login styles and import store admin styles */
+@import url('/static/store/admin.css');
+
+/* Additional tweaks for the login page */
+.login { background: linear-gradient(180deg, #ffffff 0%, #f2f6ff 100%); border-radius:18px; box-shadow: 0 18px 40px rgba(38, 67, 131, 0.06); padding:28px; }

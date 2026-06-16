@@ -1,0 +1,24 @@
+{% extends 'admin/index.html' %}
+{% load static %}
+
+{% block content %}
+<div style="padding: 32px 24px; background: #f5f7fb; border-radius: 24px; box-shadow: 0 18px 40px rgba(38, 67, 131, 0.08); margin-bottom: 24px;">
+    <h1 style="font-size: 2rem; margin-bottom: 12px; color: #1a2540;">Welcome to Storefront Admin</h1>
+    <p style="font-size: 1.05rem; color: #54607b; max-width: 720px;">Manage categories, products, and orders with improved listings, actions, and a cleaner admin experience.</p>
+</div>
+<div class="dashboard-module" style="display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 18px;">
+    <div style="padding: 24px; background: #ffffff; border-radius: 20px; border: 1px solid #dde4f1;">
+        <h2 style="margin-top:0;">Quick actions</h2>
+        <ul style="padding-left: 20px; color: #4b5d79;">
+            <li>Create or manage products</li>
+            <li>Review recent orders</li>
+            <li>Adjust inventory status</li>
+        </ul>
+    </div>
+    <div style="padding: 24px; background: #ffffff; border-radius: 20px; border: 1px solid #dde4f1;">
+        <h2 style="margin-top:0;">Need help?</h2>
+        <p style="color: #4b5d79;">Use the sidebar to jump into categories, products, and orders. You can also click the admin site title to return here.</p>
+    </div>
+</div>
+{{ block.super }}
+{% endblock %}

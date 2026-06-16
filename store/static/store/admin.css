@@ -1,0 +1,65 @@
+.root-vars {
+	--accent: #0f62fe;
+	--accent-dark: #0b4ed6;
+	--success: #16a34a;
+	--danger: #dc2626;
+	--muted: #6b7280;
+	--bg: #f4f6fb;
+	--card-border: #e5e9f8;
+	--card-shadow: rgba(39, 60, 103, 0.08);
+}
+
+.module caption, .module h2, .module h3 { color: #0f172a; }
+
+#header, #header-row, #user-tools, .breadcrumbs, .breadcrumb { background: #ffffff; }
+
+#header { border-bottom: 1px solid rgba(14, 30, 60, 0.06); }
+
+#header h1, #header h1 a { color: var(--accent-dark); }
+
+#content-main { background: var(--bg); }
+
+.dashboard-module, .module { border-radius: 18px; box-shadow: 0 14px 40px rgba(39, 60, 103, 0.08); border: 1px solid #e5e9f8; }
+
+.app-table th, .app-table td, .change-list table { border-color: #e6ecf5; }
+
+.change-form fieldset.module { border-color: #dce3ef; background: #ffffff; }
+
+form input[type=text], form input[type=email], form input[type=number], form textarea, form select { border-radius: 12px; border: 1px solid #d8e0eb; box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.05); }
+
+button, .button, input[type=submit] { background: var(--accent); color: #ffffff; border-radius: 12px; border: none; padding: 8px 16px; text-shadow: none; box-shadow: 0 10px 20px rgba(15, 45, 120, 0.12); }
+
+button:hover, .button:hover, input[type=submit]:hover { background: var(--accent-dark); }
+
+fieldset.module.aligned { padding: 1.5rem; }
+
+.inline-related, .related-widget-wrapper { border-radius: 16px; border: 1px solid #e8eef7; background: #fbfcff; }
+
+.stacked inline-group, .tabular.inline-related { background: #fff; }
+
+.sortable, .inline-related { box-shadow: 0 10px 30px rgba(28, 41, 67, 0.05); }
+
+#container { background: #f4f6fb; }
+
+#footer { color: #7a869a; }
+
+/* Badges */
+.badge { display:inline-block; padding:6px 10px; border-radius:999px; font-size:0.85rem; font-weight:700; color:#fff; }
+.badge-success { background: var(--success); }
+.badge-primary { background: var(--accent); }
+.badge-danger { background: var(--danger); }
+.badge-muted { background: var(--muted); }
+
+/* Admin login styles */
+.login { background: linear-gradient(180deg, #ffffff 0%, #f2f6ff 100%); border-radius:18px; box-shadow: 0 18px 40px rgba(38, 67, 131, 0.06); padding:28px; }
+.login .branding { font-size:1.6rem; font-weight:700; color: var(--accent-dark); margin-bottom:12px; }
+.login input[type=text], .login input[type=password] { padding:12px 14px; border-radius:12px; }
+.submit-row input[type=submit] { background: var(--accent); border-radius:12px; padding:10px 16px; }
+
+/* View site button in admin header */
+.view-site { display:inline-block; margin-left:18px; padding:8px 12px; border-radius:10px; background: #ffffff; color: var(--accent-dark); border:1px solid rgba(11,78,214,0.1); box-shadow: 0 6px 18px rgba(11,78,214,0.06); text-decoration:none; font-weight:600; }
+.view-site:hover { background: var(--accent); color: #fff; border-color: transparent; }
+
+/* Style the default admin 'View site' link when it lacks the view-site class */
+#user-tools a[href="/"] { display:inline-block; margin-left:12px; padding:6px 10px; border-radius:8px; background:#fff; color:var(--accent-dark); border:1px solid rgba(11,78,214,0.08); text-decoration:none; font-weight:600; }
+#user-tools a[href="/"]:hover { background: var(--accent); color:#fff; border-color: transparent; }

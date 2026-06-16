@@ -1,0 +1,2 @@
+/* Import store admin styles so our custom styles apply across admin pages */
+@import url('/static/store/admin.css');
