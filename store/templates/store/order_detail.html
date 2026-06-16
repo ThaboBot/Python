@@ -1,0 +1,102 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Order #{{ order.id }} - Storefront{% endblock %}
+
+{% block content %}
+<div class="customer-section">
+    <div class="section-header">
+        <h1>Order #{{ order.id }}</h1>
+        <a href="{% url 'store:order_history' %}" class="btn-link">← Back to Orders</a>
+    </div>
+    
+    <div class="order-detail-container">
+        <div class="order-info">
+            <div class="info-block">
+                <h3>Order Status</h3>
+                <span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
+                <p class="order-date">Placed on {{ order.created_at|date:"M d, Y at g:i A" }}</p>
+            </div>
+            
+            <div class="info-block">
+                <h3>Customer Information</h3>
+                <p><strong>Name:</strong> {{ order.customer_name }}</p>
+                <p><strong>Email:</strong> {{ order.customer_email }}</p>
+            </div>
+            
+            <div class="info-block">
+                <h3>Order Summary</h3>
+                <p class="order-total">Total: ${{ order.get_total }}</p>
+                <p class="item-count">{{ order.items.count }} item{{ order.items.count|pluralize }}</p>
+            </div>
+        </div>
+        
+        <div class="order-items-detail">
+            <h3>Items</h3>
+            <div class="items-table">
+                <div class="table-header">
+                    <div class="col-product">Product</div>
+                    <div class="col-price">Price</div>
+                    <div class="col-qty">Quantity</div>
+                    <div class="col-subtotal">Subtotal</div>
+                </div>
+                
+                {% for item in order.items.all %}
+                    <div class="table-row">
+                        <div class="col-product">
+                            <a href="{% url 'store:product_detail' item.product.slug %}">{{ item.product.name }}</a>
+                        </div>
+                        <div class="col-price">${{ item.unit_price }}</div>
+                        <div class="col-qty">{{ item.quantity }}</div>
+                        <div class="col-subtotal">${{ item.get_subtotal }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <div class="order-total-section">
+                <h3>Order Total: ${{ order.get_total }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .customer-section { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+    .section-header h1 { margin: 0; font-size: 28px; }
+    .btn-link { color: #0b4ed6; text-decoration: none; font-weight: 600; }
+    .order-detail-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .order-info { }
+    .info-block { background: #f9f9f9; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+    .info-block h3 { margin: 0 0 12px; font-size: 14px; font-weight: 700; text-transform: uppercase; color: #666; }
+    .info-block p { margin: 8px 0; font-size: 14px; color: #333; }
+    .status-badge { display: inline-block; padding: 8px 14px; border-radius: 20px; font-weight: 600; font-size: 13px; }
+    .status-draft { background: #f0f0f0; color: #666; }
+    .status-paid { background: #d4edda; color: #155724; }
+    .status-shipped { background: #d1ecf1; color: #0c5460; }
+    .status-cancelled { background: #f8d7da; color: #721c24; }
+    .order-date { color: #999; font-size: 12px; margin: 8px 0 0 !important; }
+    .order-total { font-size: 20px; font-weight: 700; color: #0b4ed6; margin: 0; }
+    .item-count { color: #999; font-size: 12px; margin: 4px 0 0 !important; }
+    .order-items-detail { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; }
+    .order-items-detail h3 { margin: 0 0 16px; font-size: 16px; }
+    .items-table { margin-bottom: 20px; }
+    .table-header, .table-row { display: grid; grid-template-columns: 1.5fr 0.8fr 0.8fr 0.8fr; gap: 16px; padding: 12px 0; }
+    .table-header { font-weight: 700; font-size: 13px; border-bottom: 2px solid #e0e0e0; margin-bottom: 12px; }
+    .table-row { border-bottom: 1px solid #f0f0f0; padding: 12px 0; }
+    .table-row:last-child { border-bottom: none; }
+    .col-product a { color: #0b4ed6; text-decoration: none; font-weight: 600; }
+    .col-product a:hover { text-decoration: underline; }
+    .col-price, .col-qty, .col-subtotal { text-align: right; }
+    .order-total-section { text-align: right; padding-top: 16px; border-top: 2px solid #e0e0e0; }
+    .order-total-section h3 { margin: 0; font-size: 18px; }
+    
+    @media (max-width: 768px) {
+        .order-detail-container { grid-template-columns: 1fr; }
+        .table-header, .table-row { grid-template-columns: 1fr; }
+        .col-price::before { content: 'Price: '; font-weight: 700; }
+        .col-qty::before { content: 'Qty: '; font-weight: 700; }
+        .col-subtotal::before { content: 'Subtotal: '; font-weight: 700; }
+    }
+</style>
+{% endblock %}
