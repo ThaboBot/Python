@@ -17,12 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from store.views import CategoryViewSet, ProductViewSet, OrderViewSet, UserViewSet
+from store.views import CategoryViewSet, ProductViewSet, OrderViewSet, UserViewSet, CartViewSet
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'categories', CategoryViewSet)
 router.register(r'products', ProductViewSet)
-router.register(r'orders', OrderViewSet)
+router.register(r'orders', OrderViewSet, basename='order')
+router.register(r'cart', CartViewSet, basename='cart')
 router.register(r'users', UserViewSet)
 
 urlpatterns = [

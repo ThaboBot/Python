@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Category, Product, Order, OrderItem
+from django.db.models import Sum, Count
+from .models import Category, Product, Order, OrderItem, Cart, CartItem
 
 
 admin.site.site_header = 'Storefront Administration'
@@ -15,6 +16,13 @@ class OrderItemInline(admin.TabularInline):
     readonly_fields = ['unit_price']
     min_num = 1
     verbose_name_plural = 'Order items'
+
+
+class CartItemInline(admin.TabularInline):
+    model = CartItem
+    extra = 0
+    min_num = 1
+    verbose_name_plural = 'Cart items'
 
 
 @admin.action(description='Mark selected products as active')
@@ -93,17 +101,17 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'customer_name', 'customer_email', 'status', 'created_at']
+    list_display = ['id', 'customer_name', 'customer_email', 'status_badge', 'created_at', 'order_total']
     list_filter = ['status', 'created_at']
     search_fields = ['customer_name', 'customer_email']
     date_hierarchy = 'created_at'
     inlines = [OrderItemInline]
     ordering = ['-created_at']
     actions = [mark_shipped, mark_cancelled]
-    readonly_fields = ['created_at']
+    readonly_fields = ['created_at', 'order_total']
     fieldsets = (
         (None, {'fields': ('customer_name', 'customer_email', 'status')}),
-        ('Order details', {'fields': ('created_at',)}),
+        ('Order details', {'fields': ('created_at', 'order_total')}),
     )
 
     class Media:
@@ -121,3 +129,30 @@ class OrderAdmin(admin.ModelAdmin):
 
     status_badge.short_description = 'Status'
     status_badge.admin_order_field = 'status'
+
+    def order_total(self, obj):
+        return f'${obj.get_total():.2f}'
+
+    order_total.short_description = 'Total'
+
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'item_count', 'cart_total', 'updated_at']
+    list_filter = ['updated_at']
+    search_fields = ['user__username', 'user__email']
+    inlines = [CartItemInline]
+    readonly_fields = ['created_at', 'updated_at']
+
+    class Media:
+        css = {'all': ('store/admin.css',)}
+
+    def item_count(self, obj):
+        return obj.items.count()
+
+    item_count.short_description = 'Items'
+
+    def cart_total(self, obj):
+        return f'${obj.get_total():.2f}'
+
+    cart_total.short_description = 'Total'
